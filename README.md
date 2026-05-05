@@ -2,7 +2,7 @@
 
 > Distributed rate limiter and API gateway library — Java 8 · Spring AOP `@RateLimit` annotation · Three Lua-atomic Redis algorithms · Micrometer/Prometheus metrics · AWS ECS.
 
-**Why this stands out in interviews:** Building a production-quality rate limiter from scratch — using atomic Lua scripts in Redis — is exactly the kind of deep infrastructure thinking that separates senior from mid-level engineers. Interviewers at Razorpay, PhonePe, or any high-traffic company will spend 20 minutes on this project.
+Building a production-quality rate limiter from scratch — using atomic Lua scripts in Redis — is exactly the kind of deep infrastructure thinking that separates senior from mid-level engineers. Interviewers at Razorpay, PhonePe, or any high-traffic company will spend 20 minutes on this project.
 
 [![CI](https://github.com/raghvivyas/vaultcache/actions/workflows/ci.yml/badge.svg)](https://github.com/raghvivyas/vaultcache/actions)
 [![Java 8](https://img.shields.io/badge/Java-8-orange.svg)](https://adoptium.net/)
