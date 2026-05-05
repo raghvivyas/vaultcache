@@ -8,8 +8,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-import java.util.List;
-
 @Configuration
 public class RedisConfig {
 
@@ -71,12 +69,12 @@ public class RedisConfig {
     public DefaultRedisScript<Long> slidingWindowScript() {
         DefaultRedisScript<Long> script = new DefaultRedisScript<>();
         script.setScriptText(
-            "local key        = KEYS[1]\n" +
-            "local now         = tonumber(ARGV[1])\n" +
-            "local window      = tonumber(ARGV[2])\n" +
-            "local limit       = tonumber(ARGV[3])\n" +
+            "local key          = KEYS[1]\n" +
+            "local now          = tonumber(ARGV[1])\n" +
+            "local window       = tonumber(ARGV[2])\n" +
+            "local limit        = tonumber(ARGV[3])\n" +
             "local window_start = now - window\n" +
-            -- Remove timestamps older than the window
+            "-- Remove timestamps older than the window\n" +
             "redis.call('ZREMRANGEBYSCORE', key, 0, window_start)\n" +
             "local count = redis.call('ZCARD', key)\n" +
             "if count < limit then\n" +
