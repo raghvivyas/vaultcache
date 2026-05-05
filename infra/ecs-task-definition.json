@@ -1,0 +1,40 @@
+{
+  "family": "vaultcache",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "arn:aws:iam::ACCOUNT_ID:role/ecsTaskExecutionRole",
+  "taskRoleArn":      "arn:aws:iam::ACCOUNT_ID:role/vaultcacheTaskRole",
+  "containerDefinitions": [
+    {
+      "name": "vaultcache-app",
+      "image": "ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com/vaultcache:latest",
+      "essential": true,
+      "portMappings": [{ "containerPort": 8080, "protocol": "tcp" }],
+      "environment": [
+        { "name": "DEFAULT_LIMIT_PER_MINUTE", "value": "60"  },
+        { "name": "DEFAULT_BURST_SIZE",       "value": "10"  },
+        { "name": "REDIS_PORT",               "value": "6379" }
+      ],
+      "secrets": [
+        { "name": "DB_HOST",     "valueFrom": "arn:aws:ssm:ap-south-1:ACCOUNT_ID:parameter/vaultcache/DB_HOST" },
+        { "name": "DB_PASSWORD", "valueFrom": "arn:aws:ssm:ap-south-1:ACCOUNT_ID:parameter/vaultcache/DB_PASSWORD" },
+        { "name": "REDIS_HOST",  "valueFrom": "arn:aws:ssm:ap-south-1:ACCOUNT_ID:parameter/vaultcache/REDIS_HOST" },
+        { "name": "JWT_SECRET",  "valueFrom": "arn:aws:ssm:ap-south-1:ACCOUNT_ID:parameter/vaultcache/JWT_SECRET" }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/vaultcache",
+          "awslogs-region": "ap-south-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "healthCheck": {
+        "command": ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"],
+        "interval": 30, "timeout": 5, "retries": 3, "startPeriod": 60
+      }
+    }
+  ]
+}
