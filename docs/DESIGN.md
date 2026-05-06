@@ -1,6 +1,6 @@
 # VaultCache — Design Document
 
-> **Author:** \<Your Name\>
+> **Author:** Raghvi Vyas
 > **Stack:** Java 8 · Spring Boot 2.7 · Redis Lua Scripts · Spring AOP · PostgreSQL · Micrometer/Prometheus · Docker · AWS ECS
 > **Domain context:** Rate limiting is the most critical reliability primitive in high-traffic APIs. Every company that runs a public API — Razorpay, Zerodha, Phonepe, Postman — needs this. Building it from scratch, including the Lua atomicity layer, signals infrastructure-level thinking that separates senior from mid-level engineers.
 
