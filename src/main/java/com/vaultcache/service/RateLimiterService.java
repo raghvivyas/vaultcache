@@ -61,7 +61,7 @@ public class RateLimiterService {
         this.tokenBucketScript  = tokenBucketScript;
         this.allowedCounter     = allowedRequestsCounter;
         this.throttledCounter   = throttledRequestsCounter;
-        this.redisTimer         = redisTimer;
+        this.redisTimer         = redisLatencyTimer;
     }
 
     /**
